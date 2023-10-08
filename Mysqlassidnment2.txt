@@ -1,0 +1,75 @@
+create database employee
+use employee
+*/department table/*
+   create table depts(dno int primary key auto_increment,
+   dname varchar(20) not null, 
+   location varchar(20) check(location='ind'or location='usa'or location='uk'))
+   insert into depts values  (1,'naga','ind')
+   insert into depts values (2,'sai','usa')
+   insert into depts values(3,'dileep','uk')
+   insert into depts values (4,'kumar','ind')
+   insert into depts values (4,'shaif','')
+   select * from depts	 
+
+*/employee table/*
+   create table emps(eid int primary key auto_increment,
+   ename varchar(20) not null, 
+   sal int check (sal>=10000 and sal<= 50000 ),
+   dno int,  constraint fk foreign key(dno) references  depts(dno))
+   insert into emps values  (701,'naga',14000,1)
+   insert into emps values  (702, 'sai',25000,2)
+   insert into emps values (703,'dileep',39000,3)
+   insert into emps values (704,'kumar',43000,4)
+   insert into emps values (705,'karthik',25000,3),(706,'raju',39000,2)
+   insert into emps values  (705, 'kumar',52000,3)
+   insert into emps values (706,'naga',2000,2)
+    select * from emps
+
+*/project table/*
+    create table project(pid int primary key auto_increment,pname varchar(20) not null)
+    insert into project values (101,'online social voting') 
+    insert into project values (102,'social networks')
+    insert into project values (103,'cloud computing')
+    insert into project values (104,'nature work')
+    select * from project
+ 
+ */employeeproject/*
+        create table emppro(eid int ,pid int,
+             constraint fkr foreign key (eid) references emps(eid),
+              constraint fks foreign key (pid) references project(pid))
+                    insert into emppro values (701,102),(701,101)
+                    insert into emppro values (702,101),(702,103),(702,104),(703,104),(703,102),(704,101),(704,103)
+                    select * from emppro
+
+   */ subquerys/*
+1. select * from emps where dno=(select dno from depts where dno=emps.dno)  
+2. select  eid ,pid from emps inner join project on emps.eid=project.pid
+3. select dno,sum(sal) as  sal from emps group by dno
+4. select dno,dname from depts left join emps on depts.dno=emps.dno where emps.dno is null 
+5. select * from emps e where (select count(distinct sal)from emps where sal<e.sal)
+6. select  e1.eid, e1.ename,e1.sal  from emps e1 inner join emps e2 on e1.sal=e2.sal and e1.eid<>e2.eid
+7. use employee             
+   delimiter $$
+   create procedure emps(in eno int,in ename varchar(20),in sal int,in dno int)
+   begin
+   insert into emps(eid,ename,sal,dno) value (eno,ename,sal,dno);
+   end $$
+   call emps (707,'Dileep',49000,4)
+            
+8.create view empsal as select eid,ename,
+   sal * 12 as annual_salary
+    from emps
+     select * from empsal
+      select * from emps
+            
+9.use employee  
+  delimiter $$
+  create function emps(sal int ) returns int
+  deterministic
+  begin
+  declare emps int ;
+  set emps = sal* 0.13; 
+  return emps;
+  end $$
+  select emps(14000)
+  select emps(sal) from emps
