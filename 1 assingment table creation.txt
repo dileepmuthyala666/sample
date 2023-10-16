@@ -1,0 +1,4 @@
+
+*/Table*/
+create table emp(eid int,ename varchar(10),sal int,designation varchar(10))
+select* from emp

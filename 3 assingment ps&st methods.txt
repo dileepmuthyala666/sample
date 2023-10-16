@@ -1,0 +1,33 @@
+package jdbcdemo;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Jdbcas {
+
+	public static void main(String[] args) throws SQLException, FileNotFoundException {
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/mysqlclass","root","Dileep@7117");
+		con.setAutoCommit(false);    
+		   PreparedStatement ps=con.prepareStatement("insert into emp(eid,ename,sal,designation) values(?,?,?,?)");
+		Statement stmt=con.createStatement();  
+		stmt.executeUpdate("insert into emp values(4,'arun',12000,'jr ops')");  
+		stmt.executeUpdate("insert into emp values(5,'kumar',12000,'jr ops')");  
+	     ps.setInt(1,2);
+	     ps.setString(2,"dileep");
+	     ps.setInt(3,23000);
+	     ps.setString(4,"as eng");
+	     int r=ps.executeUpdate();
+	     System.out.println(r+" row inserted");
+	     con.commit();
+	     con.close();
+	     
+		
+	}
+
+}
