@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>css-color models</title>
+        <style type="text/css">
+            h1
+            {
+                color:rgb(1, 1, 14);
+            }
+            #p1
+            {
+                color: rgb(16, 87, 9);
+                background-color: rgb(240, 169, 169);
+                font-family:Arial;
+            }
+            #p2
+            {
+                color:rgb(71, 18, 141);
+                background-color: rgb(158, 183, 229);
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>SUNRICE BOYS HOSTEL</h1>
+        <p id="p1">hostel maintain is good but food was worst </p>
+        <p id="p2">address nexus mall back side beside road 5 building 9th pahse kphd</p>
+    </body>
+</html>
